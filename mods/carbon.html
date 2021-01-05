@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NC-DICT</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.5/dist/css/uikit.min.css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" />
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+	<style>
+		html,body{
+			margin: 0; padding: 0;
+			background: wheat;
+		}
+		#main{
+			display: flex;
+			flex-direction: column;
+			height: 100vh;
+			width: 100vw;
+			min-height: 100vh;
+			max-width: 100vw;
+		}
+		#dict{
+			display: flex;
+			width:100%;
+			height:75vh;
+			background: #000a;
+		}
+		#menu{
+			display: flex;
+			flex-direction: column;
+			height: 20vh;
+			width: 100vw;
+		}
+		#r1,#r2{
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			margin: 0.5em;
+		}
+		#dict{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: wheat;
+			font-size: 2em;
+			font-family: 'Noto Serif', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="main">
+		<div id="dict">&nbsp;</div>
+		<div id="menu">
+			<div id="r1">
+				<button class="uk-button uk-button-secondary" uk-toggle="target: #r2" type="button">Show</button>
+				<button id="nxt" class="uk-button uk-button-primary" type="button">Next</button>
+			</div>
+			<div id="r2">
+				<button id="random" class="uk-button uk-button-danger" uk-toggle="target: #r2" type="button">Randomize</button>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- UIkit JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.5/dist/js/uikit.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.5/dist/js/uikit-icons.min.js"></script>
+	<script>
+		$(function () {
+			let preList = [
+				"Meth", "Eth", "Prop", "But", "Hex","Hept","Oct","Non","Dec"
+			];
+            let postList1 = [
+                "ane"
+            ];
+            let postList2 = [
+                "ane", "ene"
+            ];
+            let postList = [
+                "ane", "ene", "yne"
+            ];
+            let btn = $("#r2");
+			UIkit.toggle(btn).toggle();
+            function makeComp() {
+                let i = Math.floor( Math.random() * preList.length);
+                if (i == 0) {
+                    let j = Math.floor( Math.random() * postList1.length);
+
+                $("#dict").html(preList[i] + postList1[j]);
+                }
+                else if (i == 1) {
+                    let j = Math.floor( Math.random() * postList2.length);
+
+                $("#dict").html(preList[i] + postList2[j]);
+                }
+                else if (i > 1) {
+                    let j = Math.floor( Math.random() * postList.length);
+
+                $("#dict").html(preList[i] + postList[j]);
+                }
+            }
+			$("#random").click(function () {
+                makeComp();
+				UIkit.toggle(btn).toggle();
+			});
+			$("#nxt").click(function () {
+                makeComp();
+            });
+            makeComp();
+		});
+	</script>
+</body>
+
+</html>
